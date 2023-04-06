@@ -6,6 +6,17 @@
     padding: 0px;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
 #button-grid {
     display: flex;
 }
@@ -25,6 +36,10 @@
     flex-direction: column;
 }
 
+#operation {
+    margin-left: 20px;
+}
+
 #calculator {
     display: flex;
     flex-direction: column;
@@ -36,10 +51,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    position: absolute;
-    top: 30%;
-    left: 40%;
-    translate: (-50%, -50%);
 }
 
 button {
