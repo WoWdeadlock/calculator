@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
 * {
+    font-family: 'EB Garamond', serif;
     margin: 0px;
     padding: 0px;
 }
@@ -10,6 +13,7 @@
 #number-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
 }
 
 .zero {
@@ -34,7 +38,7 @@
     align-items: flex-end;
     position: absolute;
     top: 30%;
-    left: 45%;
+    left: 40%;
     translate: (-50%, -50%);
 }
 
@@ -43,7 +47,32 @@ button {
     border-bottom: 1px solid #095264;
     border-right: 1px solid #095264;
     background-color: #3db6d4;
-    color: #d2d7d8;
-    font-size: 2rem;
-    padding-inline: 25px;
+    color: #ffffff;
+    font-size: 2.5rem;
+    padding-inline: 30px;
+}
+
+#operation-buttons button {
+    margin-left: 5px;
+    padding-inline: 5px;
+    margin-bottom: 1px;
+}
+
+#calculator-display {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#calculator-display * {
+    padding-block: 5px;
+    padding-right: 5px;
+    text-align: end;
+    background-color: #1b8ba7;
+    color: #ffffff;
+    font-size: 1.75rem;
+}
+
+#prev-operand {
+    color: #dad6d6;
+    font-size: 1.25rem;
 }
