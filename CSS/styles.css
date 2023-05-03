@@ -8,6 +8,7 @@
 
 body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -17,73 +18,56 @@ body {
     left: 0;
 }
 
-#button-grid {
-    display: flex;
-}
-
-#number-buttons {
+.buttons-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
 }
 
-.zero {
-    grid-column: span 3;
-}
-
-#operation-buttons {
-    display: flex;
-    flex-direction: column;
-}
-
-#operation {
-    margin-left: 20px;
-}
-
-#calculator {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.calculator-body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-button {
-    border: none;
-    border-bottom: 1px solid #095264;
-    border-right: 1px solid #095264;
-    background-color: #3db6d4;
-    color: #ffffff;
-    font-size: 2.5rem;
+.number {
+    font-size: 2rem;
+    padding: 20px;
     padding-inline: 30px;
+    background-color: #252422;
+    border-color: #eb5e28;
+    color: #fffcf2;
 }
 
-#operation-buttons button {
-    margin-left: 5px;
-    padding-inline: 5px;
-    margin-bottom: 1px;
-}
-
-#calculator-display {
+.display-container {
+    height: 125px;
+    margin-bottom: 10px;
+    border-radius: 5px;
     width: 100%;
-    margin-bottom: 5px;
+    border: 1px solid #252422;
+    background-color: #252422;
+    display: flex;
+    color: #fffcf2;
+    font-size: 1.5rem;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-#calculator-display * {
-    padding-block: 5px;
-    padding-right: 5px;
-    text-align: end;
-    background-color: #1b8ba7;
-    color: #ffffff;
+.result {
+    align-self: flex-end;
+}
+
+.operand-container {
+    display: flex;
+}
+
+.values {
+    margin-inline: 5px;
     font-size: 1.75rem;
 }
 
-#prev-operand {
-    color: #dad6d6;
-    font-size: 1.25rem;
+.clear-btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#calculator {
+    background-color: #403d39;
+    padding: 20px;
+    border-radius: 20px;
 }
