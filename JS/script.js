@@ -1,19 +1,51 @@
 const firstOperand = document.querySelector(".first-operand");
 const operator = document.querySelector(".operator");
+const secondOperand = document.querySelector(".second-operand");
 
 const numButtons = document.querySelectorAll(".num");
 const operatorButtons = document.querySelectorAll(".operator-button");
 
-numButtons.forEach(validateNumber);
+const calculateButton = document.querySelector(".calculate-button");
+
+const result = document.querySelector(".result");
+
+numButtons.forEach(validateFirstOperand);
 operatorButtons.forEach(validateOperator);
 
-function validateNumber(element) {
+operatorEntered = false;
 
-    element.addEventListener("click", () => {
+function clearCalculator() {
 
-        firstOperand.innerText += element.innerText;
+    firstOperand.innerText = "";
+    operator.innerText = "";
+    secondOperand.innerText = "";
+    result.innerText = "";
+    operatorEntered = false;
 
-    });
+}
+
+function validateFirstOperand(element) {
+
+        element.addEventListener("click", () => {
+
+            if (!operatorEntered) {
+
+                firstOperand.innerText += element.innerText;
+
+            } else {
+
+                secondOperand.innerText += element.innerText;
+
+            }
+
+            if (result.innerText != "") {
+
+                clearCalculator();
+                firstOperand.innerText += element.innerText;
+
+            } 
+
+        });
 
 }
 
@@ -21,8 +53,38 @@ function validateOperator(element) {
 
     element.addEventListener("click", () => {
 
-        operator.innerText = element.innerText;
+        if (firstOperand.innerText != "" && secondOperand.innerText == "") {
+
+            operator.innerText = element.innerText;
+            operatorEntered = true;
+        
+        }
 
     });
 
 }
+
+calculateButton.addEventListener("click", () => {
+
+    switch (operator.innerText) {
+
+        case "+":
+            result.innerText = parseInt(firstOperand.innerText) + parseInt(secondOperand.innerText)
+            break;
+        case "-":
+            result.innerText = parseInt(firstOperand.innerText) - parseInt(secondOperand.innerText)
+            break;
+        case "*":
+            result.innerText = parseInt(firstOperand.innerText) * parseInt(secondOperand.innerText)
+            break;
+        case "/":
+            result.innerText = parseInt(firstOperand.innerText) / parseInt(secondOperand.innerText)
+            break;
+        default:
+            break;
+    }
+
+});
+
+
+
