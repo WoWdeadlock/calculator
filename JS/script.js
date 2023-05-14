@@ -6,6 +6,9 @@ const numButtons = document.querySelectorAll(".num");
 const operatorButtons = document.querySelectorAll(".operator-button");
 
 const calculateButton = document.querySelector(".calculate-button");
+const clearButton = document.querySelector(".clear-btn");
+const deleteButton = document.querySelector(".del-btn");
+const decimalButton = document.querySelector(".decimal");
 
 const result = document.querySelector(".result");
 
@@ -30,18 +33,32 @@ function validateFirstOperand(element) {
 
             if (!operatorEntered) {
 
-                firstOperand.innerText += element.innerText;
+
+                if (!(firstOperand.innerText == "0" && element.innerText == "0")) {
+
+                    firstOperand.innerText += element.innerText;
+
+                }
 
             } else {
 
-                secondOperand.innerText += element.innerText;
+                if (!(secondOperand.innerText == "0" && element.innerText == "0")) {
+
+                    secondOperand.innerText += element.innerText;
+
+                }
 
             }
 
             if (result.innerText != "") {
 
                 clearCalculator();
-                firstOperand.innerText += element.innerText;
+                
+                if (!(firstOperand.innerText == "0" && element.innerText == "0")) {
+
+                    firstOperand.innerText += element.innerText;
+
+                }
 
             } 
 
@@ -69,16 +86,16 @@ calculateButton.addEventListener("click", () => {
     switch (operator.innerText) {
 
         case "+":
-            result.innerText = parseInt(firstOperand.innerText) + parseInt(secondOperand.innerText)
+            result.innerText = parseFloat(firstOperand.innerText) + parseFloat(secondOperand.innerText)
             break;
         case "-":
-            result.innerText = parseInt(firstOperand.innerText) - parseInt(secondOperand.innerText)
+            result.innerText = parseFloat(firstOperand.innerText) - parseFloat(secondOperand.innerText)
             break;
         case "*":
-            result.innerText = parseInt(firstOperand.innerText) * parseInt(secondOperand.innerText)
+            result.innerText = parseFloat(firstOperand.innerText) * parseFloat(secondOperand.innerText)
             break;
         case "/":
-            result.innerText = parseInt(firstOperand.innerText) / parseInt(secondOperand.innerText)
+            result.innerText = parseFloat(firstOperand.innerText) / parseFloat(secondOperand.innerText)
             break;
         default:
             break;
@@ -86,5 +103,63 @@ calculateButton.addEventListener("click", () => {
 
 });
 
+clearButton.addEventListener("click", () => {
 
+    clearCalculator();
+
+});
+
+deleteButton.addEventListener("click", () => {
+
+    if (firstOperand.innerText != "" && operator.innerText == "") {
+
+        firstOperand.innerText = firstOperand.innerText.slice(0, -1);
+
+    } else {
+
+        if (operator.innerText != "" && result.innerText == "") {
+
+            secondOperand.innerText = secondOperand.innerText.slice(0, -1);
+
+        }
+
+    }
+
+    if (result.innerText != "") {
+
+        clearCalculator();
+
+    }
+
+});
+
+decimalButton.addEventListener("click", () => {
+
+    if (firstOperand.innerText == "") {
+
+        firstOperand.innerText = "0.";
+
+    }
+
+    if (operator.innerText != "" && secondOperand.innerText == "") {
+
+        secondOperand.innerText = "0.";
+
+    }
+
+    if (firstOperand.innerText != "" && operator.innerText == ""  && !firstOperand.innerText.includes(".")) {
+
+        firstOperand.innerText = firstOperand.innerText + ".";
+
+    } else {
+
+        if (operator.innerText != "" && result.innerText == "" && !secondOperand.innerText.includes(".")) {
+
+            secondOperand.innerText = secondOperand.innerText + ".";
+
+        }
+
+    }
+
+});
 
