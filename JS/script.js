@@ -12,55 +12,18 @@ const decimalButton = document.querySelector(".decimal");
 
 const result = document.querySelector(".result");
 
-numButtons.forEach(validateFirstOperand);
+const keyboardButtons = document.querySelectorAll(".key-entry");
+
+numButtons.forEach(validateOperands);
 operatorButtons.forEach(validateOperator);
 
 operatorEntered = false;
 
-function clearCalculator() {
-
-    firstOperand.innerText = "";
-    operator.innerText = "";
-    secondOperand.innerText = "";
-    result.innerText = "";
-    operatorEntered = false;
-
-}
-
-function validateFirstOperand(element) {
+function validateOperands(element) {
 
         element.addEventListener("click", () => {
 
-            if (!operatorEntered) {
-
-
-                if (!(firstOperand.innerText == "0" && element.innerText == "0")) {
-
-                    firstOperand.innerText += element.innerText;
-
-                }
-
-            } else {
-
-                if (!(secondOperand.innerText == "0" && element.innerText == "0")) {
-
-                    secondOperand.innerText += element.innerText;
-
-                }
-
-            }
-
-            if (result.innerText != "") {
-
-                clearCalculator();
-                
-                if (!(firstOperand.innerText == "0" && element.innerText == "0")) {
-
-                    firstOperand.innerText += element.innerText;
-
-                }
-
-            } 
+            operandEntry(element);
 
         });
 
@@ -70,18 +33,104 @@ function validateOperator(element) {
 
     element.addEventListener("click", () => {
 
-        if (firstOperand.innerText != "" && secondOperand.innerText == "") {
-
-            operator.innerText = element.innerText;
-            operatorEntered = true;
-        
-        }
+            operatorEntry(element);
 
     });
 
 }
 
 calculateButton.addEventListener("click", () => {
+
+    if (secondOperand.innerText != "") {
+
+        calculate();
+
+    }
+
+});
+
+clearButton.addEventListener("click", () => {
+
+    clearCalculator();
+
+});
+
+deleteButton.addEventListener("click", () => {
+
+    deleteEntry();
+
+});
+
+decimalButton.addEventListener("click", () => {
+
+    decimalButtonEntry();
+
+});
+
+function operandEntry(element) {
+
+    if (!operatorEntered) {
+
+
+        if (!(firstOperand.innerText == "0" && element.innerText == "0")) {
+
+            firstOperand.innerText += element.innerText;
+
+        }
+
+    } else {
+
+        if (!(secondOperand.innerText == "0" && element.innerText == "0")) {
+
+            secondOperand.innerText += element.innerText;
+
+        }
+
+    }
+
+    if (result.innerText != "") {
+
+        clearCalculator();
+        
+        if (!(firstOperand.innerText == "0" && element.innerText == "0")) {
+
+            firstOperand.innerText += element.innerText;
+
+        }
+
+    } 
+
+}
+
+function operatorEntry(element) {
+
+    if (result.innerText == ":( don't do that!") {
+
+        clearCalculator();
+
+    }
+
+    if (firstOperand.innerText != "" && secondOperand.innerText == "") {
+
+        operator.innerText = element.innerText;
+        operatorEntered = true;
+    
+    }
+
+    if (firstOperand.innerText != "" && secondOperand.innerText != "") {
+
+        calculate();
+        temp = result.innerText;
+        clearCalculator();
+        firstOperand.innerText = temp;
+        operator.innerText = element.innerText;
+        operatorEntered = true;
+    
+    }
+
+}
+
+function calculate() {
 
     switch (operator.innerText) {
 
@@ -95,21 +144,29 @@ calculateButton.addEventListener("click", () => {
             result.innerText = parseFloat(firstOperand.innerText) * parseFloat(secondOperand.innerText)
             break;
         case "/":
-            result.innerText = parseFloat(firstOperand.innerText) / parseFloat(secondOperand.innerText)
+            if (secondOperand.innerText == "0") {
+                result.innerText = ":( don't do that!"
+            } else {
+                result.innerText = parseFloat(firstOperand.innerText) / parseFloat(secondOperand.innerText)
+            }
             break;
         default:
             break;
     }
 
-});
+}
 
-clearButton.addEventListener("click", () => {
+function clearCalculator() {
 
-    clearCalculator();
+    firstOperand.innerText = "";
+    operator.innerText = "";
+    secondOperand.innerText = "";
+    result.innerText = "";
+    operatorEntered = false;
 
-});
+}
 
-deleteButton.addEventListener("click", () => {
+function deleteEntry() {
 
     if (firstOperand.innerText != "" && operator.innerText == "") {
 
@@ -131,9 +188,15 @@ deleteButton.addEventListener("click", () => {
 
     }
 
-});
+}
 
-decimalButton.addEventListener("click", () => {
+function decimalButtonEntry() {
+
+    if (result.innerText == ":( don't do that!") {
+
+        clearCalculator();
+
+    }
 
     if (firstOperand.innerText == "") {
 
@@ -161,5 +224,49 @@ decimalButton.addEventListener("click", () => {
 
     }
 
+    if (result.innerText != "" && !result.innerText.includes(".")) {
+
+        temp = result.innerText + ".";
+        clearCalculator();
+        firstOperand.innerText = temp;
+
+    }
+
+}
+
+
+document.addEventListener("keypress", function(event) {
+
+    for (let i = 0; i < keyboardButtons.length; i++) {
+
+        if (event.key == keyboardButtons[i].innerText) {
+
+            keyboardButtons[i].click();
+
+        }
+        
+    }
+
+    if (event.key == "Enter") {
+
+        calculateButton.click();
+
+    }
+
 });
 
+document.addEventListener("keydown", function(event) {
+
+    if (event.key == "Backspace") {
+
+        deleteButton.click();
+
+    }
+
+    if (event.key == "Escape") {
+
+        clearButton.click();
+
+    }
+
+});
